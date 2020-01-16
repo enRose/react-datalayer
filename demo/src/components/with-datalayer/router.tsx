@@ -6,12 +6,12 @@ export interface PageRoute {
 	suspense?: boolean
 }
 
-export const Router = ({ pageRoutes, firstPage, suspenseFallback }: {
-	pageRoutes: PageRoute[], firstPage: string, suspenseFallback?: any
+export const Router = ({ pageRoutes, suspenseFallback }: {
+	pageRoutes: PageRoute[], suspenseFallback?: any
 }) => {
 	const routes = pageRoutes.map((pageRoute: PageRoute) =>
 		<Route key={pageRoute.name} exact path={`/${pageRoute.name}`} component={() => {
-			let PageComponent = lazy(() => import(`../pages/${pageRoute.name}`))
+			let PageComponent = lazy(() => import(`/${pageRoute.name}`))
 
 			return (
 				pageRoute.suspense && suspenseFallback ?
@@ -22,6 +22,8 @@ export const Router = ({ pageRoutes, firstPage, suspenseFallback }: {
 					<PageComponent />)
 		}} />
 	)
+
+	const firstPage = pageRoutes[0].name
 
 	return (<MemoryRouter initialEntries={[`/${firstPage}`]}>
 		<Switch>
