@@ -1,0 +1,27 @@
+{
+  "name": "@barin/react-datalayer",
+  "version": "1.0.0",
+  "description": "An HOC for datalayer collection",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enRose/react-datalayer.git"
+  },
+  "keywords": [
+    "react",
+    "react-router-dom",
+    "datalayer"
+  ],
+  "author": "Yini Yin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enRose/react-datalayer/issues"
+  },
+  "homepage": "https://github.com/enRose/react-datalayer#readme"
+}
