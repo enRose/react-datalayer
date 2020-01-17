@@ -8,14 +8,15 @@ export interface PageRoute {
   suspense?: boolean
 }
 
-const LogPage = (PageRoutes?: PageRoute[]) => {
+const LogPage = (pageRoutes?: PageRoute[]) => {
   const LogPaging = ({history}:any) => {
     useEffect(() => history.listen(() => {
       console.log('Router', history.action, history.location)
-      if (PageRoutes) {
-        const pageRoute = PageRoutes.find(pageRoute => 
-          pageRoute.name === history.location.pathname)
+      if (pageRoutes) {
+        const pageRoute = pageRoutes.find(pageRoute => 
+          `/${pageRoute.name}` === history.location.pathname)
         
+          console.log('pageRoute', pageRoute)
       }
     }), [history.location.pathname])
     return null
@@ -28,9 +29,7 @@ export const RouterWithDatalayer = ({ pageRoutes, relativePath, suspenseFallback
 }) => {
 	const routes = pageRoutes.map((pageRoute: PageRoute) =>
 		<Route key={pageRoute.name} exact path={`/${pageRoute.name}`} component={() => {
-      const PageComponent = lazy(
-        () => import(`../../pages/${pageRoute.name}`)
-      )
+      const PageComponent = lazy(() => import(`../../pages/${pageRoute.name}`))
       
       const fallback = suspenseFallback ? suspenseFallback : <div>loading...</div>
       
@@ -46,6 +45,6 @@ export const RouterWithDatalayer = ({ pageRoutes, relativePath, suspenseFallback
 		<Switch>
 			{routes}
 		</Switch>
-    {LogPage()}
+    {LogPage(pageRoutes)}
 	</MemoryRouter>)
 }
