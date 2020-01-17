@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, BrowserRouter, Switch, Route } from "react-router-dom"
 import './App.css';
-import { LogPage } from './components/with-datalayer'
+import { RouterWithDatalayer } from './components/with-datalayer'
+import {pageRoutes} from './pages/pageRoutes'
 
 const App: React.FC = () => {
   return (
     <div className="App">
+      <RouterWithDatalayer pageRoutes={pageRoutes} relativePath="../../pages" />
     </div>
   );
 }

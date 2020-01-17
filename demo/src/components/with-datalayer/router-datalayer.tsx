@@ -6,7 +6,6 @@ export interface PageRoute {
   name: string
   datalayerName?: string
   suspense?: boolean
-  relativePath?: string
 }
 
 const LogPage = (PageRoutes?: PageRoute[]) => {
@@ -24,27 +23,26 @@ const LogPage = (PageRoutes?: PageRoute[]) => {
   return React.createElement(withRouter(LogPaging))
 }
 
-export const DatalayerRouter = ({ pageRoutes, suspenseFallback }: {
-	pageRoutes: PageRoute[], suspenseFallback?: JSX.Element
+export const RouterWithDatalayer = ({ pageRoutes, relativePath, suspenseFallback }: {
+	pageRoutes: PageRoute[], relativePath:string, suspenseFallback?: JSX.Element
 }) => {
 	const routes = pageRoutes.map((pageRoute: PageRoute) =>
 		<Route key={pageRoute.name} exact path={`/${pageRoute.name}`} component={() => {
-			const PageComponent = lazy(() => import(`/${pageRoute.name}`))
+      const PageComponent = lazy(
+        () => import(`../../pages/${pageRoute.name}`)
+      )
       
-      const fallback = suspenseFallback?suspenseFallback:<p>Loading</p>
-
-			return (
-				pageRoute.suspense ?
-					<Suspense fallback={fallback}>
-						<PageComponent />
-					</Suspense>
-					:
-					<PageComponent />)
+      const fallback = suspenseFallback ? suspenseFallback : <div>loading...</div>
+      
+      return (
+				<Suspense fallback={fallback}>
+					<PageComponent />
+				</Suspense>
+			)
 		}} />
   )
   
-	return (
-  <MemoryRouter initialEntries={[`/${pageRoutes[0].name}`]}>
+	return (<MemoryRouter initialEntries={[`/${pageRoutes[0].name}`]}>
 		<Switch>
 			{routes}
 		</Switch>

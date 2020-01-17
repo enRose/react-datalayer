@@ -1,5 +1,8 @@
-import React from "react";
+import React from "react"
+import { WithNav } from '../components/nav'
 
-export const Topics = () => {
-    return <h2>Topics</h2>;
-}
+const topics = () => (<>
+        <h2>Topics</h2>
+    </>)
+
+export default topics

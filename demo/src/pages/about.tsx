@@ -1,5 +1,13 @@
 import React from "react";
+import { WithNav } from '../components/nav'
 
-export const About = () => {
-    return (<h2>About</h2>)
+const about = () => {
+    return (
+        <>
+        <h2>About</h2>
+        {WithNav('about', <button>next</button>)}
+        </>
+    )
 }
+
+export default about
