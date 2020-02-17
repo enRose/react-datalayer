@@ -1,7 +1,7 @@
 import React from "react";
 import { WithNav } from '../components/nav'
 
-const about = () => {
+const About = () => {
     return (
         <>
         <h2>About</h2>
@@ -10,4 +10,4 @@ const about = () => {
     )
 }
 
-export default about
+export default About

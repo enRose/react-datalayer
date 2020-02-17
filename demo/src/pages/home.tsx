@@ -1,5 +1,6 @@
 import React from "react"
 import { Nav } from '../components/nav'
+import { useHistory, } from 'react-router-dom'
 
 const Home = () => {
 	return <>
