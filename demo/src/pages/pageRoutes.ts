@@ -6,6 +6,7 @@ export enum PageNames {
     topics = 'topics',
 }
 
+// Can choose to extend if we want
 export interface Page extends PageRoute { }
 
 export const pageRoutes: Array<Page> = Object

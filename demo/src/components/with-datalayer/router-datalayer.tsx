@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react'
-import { withRouter, Route, MemoryRouter, Switch } from 'react-router-dom'
+import { withRouter, Route, MemoryRouter, Switch, useLocation } from 'react-router-dom'
 import React from 'react'
 
 export interface PageRoute {
@@ -8,25 +8,26 @@ export interface PageRoute {
   suspense?: boolean
 }
 
-const LogPage = (pageRoutes?: PageRoute[]) => {
-  const LogPaging = ({history}:any) => {
-    useEffect(() => history.listen(() => {
-      console.log('Router', history.action, history.location)
-      
-      if (pageRoutes) {
-        const pageRoute = pageRoutes.find(pageRoute => 
-          `/${pageRoute.name}` === history.location.pathname)
-        
-          console.log('pageRoute', pageRoute)
-      }
-    }), [history.location.pathname])
+const LogPage = (pageRoutes?: PageRoute[], analytics?:any) => {
+  const LogPaging = () => {
+    let location = useLocation()
+
+    useEffect(
+      () => {
+        console.log('location: ', location.pathname)
+
+        analytics?.report(location.pathname)
+      },
+      [location]
+    )
     return null
   }
   return React.createElement(withRouter(LogPaging))
 }
 
-export const DatalayerRouter = ({ pageRoutes, datalayer, suspenseFallback }: {
-	pageRoutes: PageRoute[], datalayer?:any, suspenseFallback?: JSX.Element
+export const DatalayerRouter = 
+({ pageRoutes, analytics, suspenseFallback }: {
+	pageRoutes: PageRoute[], analytics?:any, suspenseFallback?: JSX.Element
 }) => {
 	const routes = pageRoutes.map((pageRoute: PageRoute) =>
 		<Route key={pageRoute.name} exact path={`/${pageRoute.name}`} component={() => {
@@ -48,6 +49,6 @@ export const DatalayerRouter = ({ pageRoutes, datalayer, suspenseFallback }: {
 		<Switch>
 			{routes}
 		</Switch>
-    {LogPage(pageRoutes)}
+    {LogPage(pageRoutes, analytics)}
 	</MemoryRouter>)
 }

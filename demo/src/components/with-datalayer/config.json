@@ -1,0 +1,18 @@
+[
+	{
+		"pathname": "/home",
+		"ruleName": "cats-rule",
+		"description": "home page",
+		"datalayer": {
+			"form": {
+				"access": "unauth",
+				"name": "how to manage your cats",
+				"stage": "start",
+				"step": "select your cat"
+			},
+			"page": {
+				"name": "barin:forms:cats management:select your cat"
+			}
+		}
+	}
+]
