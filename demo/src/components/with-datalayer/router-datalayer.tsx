@@ -8,7 +8,11 @@ export interface PageRoute {
   suspense?: boolean
 }
 
-const LogPage = (pageRoutes?: PageRoute[], analytics?:any) => {
+export interface Analytics {
+  report: (pathname:string) => void
+}
+
+const LogPage = (pageRoutes?: PageRoute[], analytics?:Analytics) => {
   const LogPaging = () => {
     let location = useLocation()
 

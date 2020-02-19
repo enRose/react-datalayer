@@ -1,2 +1,1 @@
-export * from './router-datalayer' 
-export * from './analytics'
+export * from './router-datalayer'
